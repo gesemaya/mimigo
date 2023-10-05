@@ -1,0 +1,27 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+dotenv: [ .env ]
+
+tasks:
+  default:
+    deps: [ build]
+    cmds:
+      - ./tsg68-api
+
+  test:
+    cmds:
+      - echo "{{.GREETING}}"
+    silent: true
+
+  build:
+    cmds:
+     - go build
+
+  minio:
+    cmds:
+      - MINIO_ROOT_USER=admin MINIO_ROOT_PASSWORD=password ./execute/minio server ./data/minio --console-address ":9001"
+    silent: true
